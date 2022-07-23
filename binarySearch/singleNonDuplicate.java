@@ -6,7 +6,7 @@ class Solution {
         while (low <= high) {
             int mid = (low + high) / 2;
             if (mid % 2 == 0) {
-                // Checking whether we are in right half
+                // Checking whether we are in left half
                 if (nums[mid] != nums[mid + 1]) 
                     
                     //Shrinking the right half
