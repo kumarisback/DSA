@@ -1,4 +1,4 @@
 # DSA
 Practice questions &amp; Algorithm
 
-LinkedList,Dp, Recursion
+LinkedList,Dp, Recursion,Binary Search
