@@ -26,7 +26,6 @@ class Solution
         int res = -1;
         while (low <= high) {
             int mid = (low + high) >> 1;
-            //cout << low << " " << high << " " << mid << endl; 
             if (isPossible(A, mid, B)) {
                 res = mid;
                 high = mid - 1;
