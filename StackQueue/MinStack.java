@@ -15,6 +15,7 @@ class MinStack {
             st.push(val);
         } else {
             if (val < mini) {
+                //formula to remember
                 st.push(2 * val - mini);
                 mini = val;
             } else {
@@ -28,6 +29,7 @@ class MinStack {
 
         Long val = st.pop();
         if (val < mini) {
+            // formula to remember
             mini = 2 * mini - val;
         }
     }
