@@ -1,0 +1,73 @@
+package com.arun.sims;
+
+import java.util.*;
+
+//Amz
+//Q1
+// you have give two array one with size and one with health
+//and you are given queries like q[l,r] both are inclusive with multiple queries you have to give list of max health
+//where health of each queries is counted on q [left  to right] by summing all health of that particulal size
+
+
+//health [1,2,3,2]
+//size   [2,4,2,3]
+
+//queries  [[1,2], [2,4]]
+
+//output   q1->  only size 2+2 = 4is between 1 and 2
+//output   q2->  only size 2+2+3 = 7 is between 2 and 4
+
+public class Test {
+
+    public static void findMaxCharges(List<Integer> charges){
+        TreeMap<Integer ,Integer> chargeIndexMap = new TreeMap<>();
+
+        for(int i=0;i<charges.size();i++){
+            if (!chargeIndexMap.containsKey(charges.get(i))) {
+                chargeIndexMap.put(charges.get(i), i);
+            }
+        }
+
+        Iterator<Map.Entry<Integer,Integer>> itr = chargeIndexMap.entrySet().iterator();
+
+        while (charges.size()>2){
+            Map.Entry<Integer,Integer> m= itr.next();
+
+            int index= m.getValue();
+
+            int left=0;
+            int right=0;
+            if(index>0){
+               left = charges.get(index-1);
+            }
+            if(index+1 < charges.size()-1){
+                right = charges.get(index+1);
+            }
+            if(left != 0 && right !=0){
+                charges.set(index,left+right);
+                charges.remove(index+1);
+                charges.remove(index-1);
+            }
+            else if(left!=0){
+                charges;
+            }
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+
+//        1,-1,2,-2,3,4
+        list.add(1);
+        list.add(-1);
+        list.add(2);
+        list.add(-2);
+        list.add(3);
+        list.add(4);
+
+        findMaxCharges(list);
+
+    }
+}
