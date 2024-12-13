@@ -1,0 +1,80 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+     public static void bfsUpdate(int[][] a, int startRow, int startCol, int t) {
+        // Directions: up, down, left, right
+        int[] rowDirections = {-1, 1, 0, 0};
+        int[] colDirections = {0, 0, -1, 1};
+
+        // Queue to perform BFS
+        Queue<int[]> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+
+        // Add the starting cell to the queue
+        queue.offer(new int[]{startRow, startCol});
+        visited.add(startRow + "-" + startCol);
+        a[startRow][startCol] = 1;  // Set initial cell value to 1
+
+        // BFS round by round
+        int round = 1;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            // For each level (round), increment the value
+            round++;
+
+            // Traverse all nodes at the current level
+            for (int i = 0; i < size; i++) {
+                int[] cell = queue.poll();
+                int row = cell[0];
+                int col = cell[1];
+
+                // Explore all 4 directions (up, down, left, right)
+                for (int j = 0; j < 4; j++) {
+                    int newRow = row + rowDirections[j];
+                    int newCol = col + colDirections[j];
+
+                    // Check if the new cell is within bounds, not visited, and has value less than the target
+                    if (newRow >= 0 && newRow < a.length && newCol >= 0 && newCol < a[0].length &&
+                        !visited.contains(newRow + "-" + newCol) && a[newRow][newCol] < t) {
+                        
+                        // Add to queue for the next round
+                        queue.offer(new int[]{newRow, newCol});
+                        visited.add(newRow + "-" + newCol);
+                        
+                        // Update the value to the current round number
+                        a[newRow][newCol] = round;
+                    }
+                }
+            }
+        }
+     }
+
+	public static void main(String[] args) {
+		int[][] array = {
+            {1, 3, 2},
+            {3, 5, 3},
+            {0, 1, 2}
+        };
+    
+        Set<String> st= new HashSet<>();
+        for (int[] row : array) {
+            System.out.println(Arrays.toString(row));
+        }
+        
+        System.out.println("==========");
+        // find(array,1,1, array[1][1],1,st);
+         bfsUpdate(array, 1, 1, 5);
+        // array[1][1]=1;
+        for (int[] row : array) {
+            System.out.println(Arrays.toString(row));
+        }
+	}
+}
