@@ -1,0 +1,73 @@
+class Solution {
+
+    public String prepare(int maxWidth, int currentSize, List<String> temp, boolean isLast) {
+
+        String str = "";
+        int totalSpaces = maxWidth - currentSize;
+        int gaps = temp.size() - 1;
+
+        if (gaps <= 0) {
+
+            str = temp.get(0) + " ".repeat(maxWidth - temp.get(0).length());
+
+        } else if (isLast) {
+
+            for (int i = 0; i < temp.size(); i++) {
+                str += temp.get(i);
+
+                if (i != temp.size() - 1) {
+                    str += " ";
+                }
+            }
+
+            if (str.length() < maxWidth) {
+                str += " ".repeat(maxWidth - str.length());
+            }
+
+        } else {
+
+            int base = totalSpaces / gaps;
+            int extra = totalSpaces % gaps;
+
+            String[] padding = new String[gaps];
+
+            for (int i = 0; i < gaps; i++) {
+                int spaces = base + (i < extra ? 1 : 0);
+                padding[i] = " ".repeat(spaces);
+            }
+
+            for (int i = 0; i < temp.size() - 1; i++) {
+                str = str + temp.get(i) + padding[i];
+            }
+
+            str = str + temp.get(temp.size() - 1);
+        }
+
+        return str;
+    }
+
+    public List<String> fullJustify(String[] words, int maxWidth) {
+
+        List<String> result = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
+        int currentSize = 0;
+
+        for (String word : words) {
+
+            if (currentSize + word.length() + temp.size() > maxWidth) {
+
+                String str = prepare(maxWidth, currentSize, temp, false);
+                currentSize = 0;
+                result.add(str);
+                temp.clear();
+            }
+
+            temp.add(word);
+            currentSize += word.length();
+        }
+
+        result.add(prepare(maxWidth, currentSize, temp, true));
+
+        return result;
+    }
+}
